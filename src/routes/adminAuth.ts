@@ -10,10 +10,11 @@ adminAuthRouter.post("/login", (req, res) => {
   const { username, password } = req.body as { username?: string; password?: string };
   if (username === ADMIN_USER && password === ADMIN_PASS) {
     const token = signAdminToken();
+    const isProd = process.env.NODE_ENV === "production";
     res.cookie("admin_token", token, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      secure: isProd,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.json({ ok: true });
@@ -23,6 +24,11 @@ adminAuthRouter.post("/login", (req, res) => {
 });
 
 adminAuthRouter.post("/logout", (_req, res) => {
-  res.clearCookie("admin_token");
+  const isProd = process.env.NODE_ENV === "production";
+  res.clearCookie("admin_token", {
+    httpOnly: true,
+    sameSite: isProd ? "none" : "lax",
+    secure: isProd,
+  });
   res.json({ ok: true });
 });

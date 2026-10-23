@@ -12,7 +12,7 @@ import { attemptsRouter } from "./routes/attempts.js";
 
 const PORT = Number(process.env.PORT) || 4000;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/ielts_mock";
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://ielts-mock-frontend.vercel.app/";
 
 const app = express();
 

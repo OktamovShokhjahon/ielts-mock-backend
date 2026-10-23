@@ -8,6 +8,7 @@ export function signAdminToken(): string {
 
 export function verifyAdminToken(token: string): boolean {
   try {
+    console.log('jwt.ts', token)
     const p = jwt.verify(token, SECRET) as { role?: string };
     return p.role === "admin";
   } catch {
