@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
+const SECRET = process.env.JWT_SECRET || "change-me-in-production";
 
 export function signAdminToken(): string {
   return jwt.sign({ role: "admin" }, SECRET, { expiresIn: "7d" });
